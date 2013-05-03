@@ -50,16 +50,18 @@ if (window.FormData && document.querySelector) {
   var current = 0;
   var quotes = [
       "This is the beginning of a great journey...",
-      "People don't read any more",
-      "Life is like a grapefruit",
-      "We apologies for the inconvenience",
-      "I come in peace, take me to your Lizard",
-      "Anything that happens, happens",
+      "Don't Panic.",
+      "Anything that happens, happens.",
+      "Life is like a grapefruit.",
+      "We apologies for the inconvenience.",
+      "Don't give any money to the unicorns, it only encourages them.",
       "Why are we surrounded by squirrels, and what do they want?",
-      "Don't give any money to the unicorns, it only encourages them",
-      "My cat. I call him \"the lord\". I am kind to him",
+      "My cat. I call him \"the lord\". I am kind to him.",
       "Humans are not proud of their ancestors...",
-      "... and rarely invite them round to dinner"
+      "... and rarely invite them round to dinner.",
+      "Time is an illusion. Lunchtime doubly so.",
+      "The Answer to the Great Question...",
+      "So long, and thanks for all the fish."
   ];
   var progress = document.createElement('span');
   progress.className = 'progress';
