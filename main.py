@@ -27,6 +27,17 @@ def request_access_token(code):
   request = requests.post('https://readmill.com/oauth/token', params=params)
   return request.json()
 
+def send_epub_to_readmill(filepath):
+  headers = {'Authorization': 'OAuth %s' % session['access_token']}
+  files = {'library_item[asset]': open(filepath, 'rb')}
+
+  request = requests.post(url, headers=headers, files=files)
+
+  if request.status == 201:
+    return {}
+  else:
+    None
+
 @app.route("/")
 def home():
   if 'access_token' in session:
@@ -36,9 +47,13 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-  f = request.files['mobi']
+  f = request.files['file']
   f.save('/tmp/book.mobi')
-  return redirect(url_for('home'))
+
+  if request.is_xhr:
+    return ''
+  else:
+    return redirect(url_for('home'))
 
 @app.route('/auth')
 def auth():

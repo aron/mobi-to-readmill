@@ -1,15 +1,18 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/00-reset.css" type="text/css" />
-    <link rel="stylesheet" href="css/dropzone.css" type="text/css" />
-    <link rel="stylesheet" href="css/10-base.css" type="text/css" />
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
   </head>
   <body>
-    <form action="/file-upload" class="dropzone">
+    <form action="{{ url_for('home') }}" method="post" class="dropzone">
+      <div id="fallback">
+        <input type="file" name="file" />
+        <button type="submit">Upload</button>
+      </div>
     </form>
-
-    <script src="js/dropzone.js"></script>
+    <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
 </html>
