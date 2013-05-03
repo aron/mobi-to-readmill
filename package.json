@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "mobi-to-readmilu",
+  "version": "0.0.0dev",
+  "description": "Converts mobi to epub and uploads to Readmill",
+  "main": "main.js",
+  "dependencies": {
+    "connect": "~2.7.7",
+    "flask-router": "~0.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aron/mobi-to-readmill.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "readmeFilename": "README",
+  "gitHead": "1bf5a115012400dc3034d3015786d903e7e09dde"
+}
