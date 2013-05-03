@@ -5,8 +5,8 @@ import time
 
 from distutils.dir_util import copy_tree
 
-from mobiunpack import unpackBook
-from mobiml2html import MobiMLConverter
+from mobi_unpack import unpack_book
+from mobiml_to_html import MobiMLConverter
 
 epub_container = """<?xml version="1.0" encoding="UTF-8" ?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
@@ -41,7 +41,7 @@ def mobi_to_epub(infile, outdir="./tmp"):
   # unpack the mobi file
   intermediate_dir = "%s/intermediate" % outdir
   ensure_dir(intermediate_dir)
-  unpackBook(infile, intermediate_dir)
+  unpack_book(infile, intermediate_dir)
 
   # convert mobi markup
   converter = MobiMLConverter("%s/%s.html" % (intermediate_dir, book_name))
@@ -75,4 +75,4 @@ def mobi_to_epub(infile, outdir="./tmp"):
 if __name__ == "__main__":
   infile = sys.argv[1]
   
-  mobi_to_epub(infile)
+  print "wrote epub to %s" % mobi_to_epub(infile)

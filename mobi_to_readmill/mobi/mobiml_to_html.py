@@ -490,32 +490,3 @@ class MobiMLConverter(object):
         return self.taginfo_tostring(taginfo)
 
 
-
-def main(argv=sys.argv):
-    if len(argv) != 2:
-        return 1
-    else:  
-        infile = argv[1]
-
-    try:
-        print 'Converting Mobi Markup Language to XHTML'
-        mlc = MobiMLConverter(infile)
-        print 'Processing ...'
-        htmlstr = mlc.processml()
-        outname = infile.rsplit('.',1)[0] + '_converted.html'
-        file(outname, 'wb').write(htmlstr)
-        print 'Completed'
-        print 'XHTML version of book can be found at: ' + outname 
-
-    except ValueError, e:
-        print "Error: %s" % e
-        return 1
-
-    return 0
-
-
-if __name__ == "__main__":
-	sys.exit(main())
-
-
-
