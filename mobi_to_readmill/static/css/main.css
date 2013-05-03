@@ -50,6 +50,9 @@ body {
 }
 
 .upload.success:after {
+  border-style: solid;
+  border-color: darkseagreen;
+  color: darkseagreen;
   content: "Oh yeah! Made it safe and sound";
 }
 

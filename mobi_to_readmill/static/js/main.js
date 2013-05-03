@@ -47,6 +47,7 @@ if (window.FormData && document.querySelector) {
   }
 
   var timer;
+  var current = 0;
   var quotes = [
       "This is the beginning of a great journey...",
       "People don't read any more",
@@ -81,7 +82,11 @@ if (window.FormData && document.querySelector) {
     dropbox.classList.remove('active');
 
     timer = setInterval(function () {
-      progress.innerHTML = quotes.pop();
+      current += 1;
+      if (current >= quotes.length) {
+        current = 0;
+      }
+      progress.innerHTML = quotes[current];
     }, 3000);
 
     upload({
