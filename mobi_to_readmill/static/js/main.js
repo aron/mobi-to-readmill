@@ -48,8 +48,17 @@ if (window.FormData && document.querySelector) {
 
   var timer;
   var quotes = [
-    'one',
-    'two'
+      "This is the beginning of a great journey...",
+      "People don't read any more",
+      "Life is like a grapefruit",
+      "We apologies for the inconvenience",
+      "I come in peace, take me to your Lizard",
+      "Anything that happens, happens",
+      "Why are we surrounded by squirrels, and what do they want?",
+      "Don't give any money to the unicorns, it only encourages them",
+      "My cat. I call him \"the lord\". I am kind to him",
+      "Humans are not proud of their ancestors...",
+      "... and rarely invite them round to dinner"
   ];
   var progress = document.createElement('span');
   progress.className = 'progress';
