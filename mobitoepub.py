@@ -1,6 +1,7 @@
 import os
 import sys
 import zipfile
+import time
 
 from distutils.dir_util import copy_tree
 
@@ -33,11 +34,13 @@ def zip_directory(directory, filename, compression=zipfile.ZIP_DEFLATED, dont_co
       file_compression = zipfile.ZIP_STORED if file in dont_compress else compression
       zip.write(filename, filename[rootlen:], file_compression)
 
-def mobi_to_epub(infile):
+def mobi_to_epub(infile, outdir="./tmp"):
   book_name = infile.split(".")[0]
-  intermediate_dir = "%s/intermediate" % book_name
-  ensure_dir(intermediate_dir)
+  outdir = "%s/%s" % (outdir, ("%f" % time.time()).replace(".", "_"), )
 
+  # unpack the mobi file
+  intermediate_dir = "%s/intermediate" % outdir
+  ensure_dir(intermediate_dir)
   unpackBook(infile, intermediate_dir)
 
   # convert mobi markup
@@ -45,7 +48,7 @@ def mobi_to_epub(infile):
   html = converter.processml()
 
   # create epub container
-  epub_dir = "%s/epub" % book_name
+  epub_dir = "%s/epub" % outdir
   write_file("%s/META-INF/container.xml" % epub_dir, epub_container)
 
   # create mimetype file
@@ -64,7 +67,7 @@ def mobi_to_epub(infile):
   write_file("%s/%s.html" % (epub_content_dir, book_name), html)
 
   # create epub
-  epub_file = "%s/%s.epub" % (book_name, book_name)
+  epub_file = "%s/%s.epub" % (outdir, book_name)
   zip_directory(epub_dir, epub_file, dont_compress=["mimetype"])
 
   return epub_file
