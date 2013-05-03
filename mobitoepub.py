@@ -67,6 +67,8 @@ def mobi_to_epub(infile):
   epub_file = "%s/%s.epub" % (book_name, book_name)
   zip_directory(epub_dir, epub_file, dont_compress=["mimetype"])
 
+  return epub_file
+
 if __name__ == "__main__":
   infile = sys.argv[1]
   
