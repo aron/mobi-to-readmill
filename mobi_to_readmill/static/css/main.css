@@ -16,17 +16,23 @@ body:after {
   content: "Drop a .mobi file here to upload!";
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 50%;
   right: 0;
-  margin-top: -10px;
+  width: 400px;
+  padding: 30px;
+  margin-top: -25px;
+  margin-left: -230px;
+  border: 2px dashed #a4a4a4;
   font-family: Courier;
   font-size: 20px;
   line-height: 1;
   color: #a4a4a4;
   text-align: center;
+  border-radius: 10px;
 }
 
 .active:after {
+  border: 2px dashed #666;
   color: #666;
   content: "Nearly there, go on! Drop it now!";
 }
