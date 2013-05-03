@@ -39,6 +39,8 @@ def send_epub_to_readmill(filepath):
 
   if response.status_code == 201:
     return response.json()
+  elif response.status_code == 401:
+    session.delete('access_token')
 
 @app.route("/")
 def home():
