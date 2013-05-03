@@ -53,14 +53,20 @@ if (window.FormData && document.querySelector) {
       "Don't Panic.",
       "Anything that happens, happens.",
       "Life is like a grapefruit.",
+      "You live and learn. At any rate, you live.",
+      "In the beginning, the universe was created.",
+      "This made a lot of people very angry...",
+      "... and has been widely regarded as a bad idea.",
       "We apologies for the inconvenience.",
       "Don't give any money to the unicorns, it only encourages them.",
       "Why are we surrounded by squirrels, and what do they want?",
       "My cat. I call him \"the lord\". I am kind to him.",
+      "Ships hang in the sky in much the same way that bricks don't.",
       "Humans are not proud of their ancestors...",
       "... and rarely invite them round to dinner.",
       "Time is an illusion. Lunchtime doubly so.",
       "The Answer to the Great Question...",
+      "Ow! My brains!",
       "So long, and thanks for all the fish."
   ];
   var progress = document.createElement('span');
