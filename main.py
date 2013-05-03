@@ -28,6 +28,7 @@ def request_access_token(code):
   return request.json()
 
 def send_epub_to_readmill(filepath):
+  url = 'https://api.readmill.com/v2/me/library'
   headers = {'Authorization': 'OAuth %s' % session['access_token']}
   files = {'library_item[asset]': open(filepath, 'rb')}
 
