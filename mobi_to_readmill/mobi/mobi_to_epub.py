@@ -35,7 +35,9 @@ def zip_directory(directory, filename, compression=zipfile.ZIP_DEFLATED, dont_co
       zip.write(filename, filename[rootlen:], file_compression)
 
 def mobi_to_epub(infile, outdir="./tmp"):
-  book_name = infile.split(".")[0]
+  filename = os.path.basename(infile)
+  book_name, ext = os.path.splitext(filename)
+
   outdir = "%s/%s" % (outdir, ("%f" % time.time()).replace(".", "_"), )
 
   # unpack the mobi file
