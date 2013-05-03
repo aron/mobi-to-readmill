@@ -1,6 +1,8 @@
 from flask import Flask, request, session, flash, redirect, url_for, render_template
 import requests
 
+from mobi_to_readmill.mobi.mobi_to_epub import mobi_to_epub
+
 LOCAL_ROOT = 'http://localhost:5000'
 READMILL_CLIENT_ID = '26aec147008ebfd0a747605bb2db21bd'
 READMILL_CLIENT_SECRET = 'b4e8ad628ce568f540d8976bc5f042d2'
@@ -25,19 +27,18 @@ def request_access_token(code):
     'code': code
   }
   request = requests.post('https://readmill.com/oauth/token', params=params)
+
   return request.json()
 
 def send_epub_to_readmill(filepath):
-  url = 'https://api.readmill.com/v2/me/library'
+  url = 'https://api.readmill.com/v2/me/library?client_id=%s' % READMILL_CLIENT_ID
   headers = {'Authorization': 'OAuth %s' % session['access_token']}
   files = {'library_item[asset]': open(filepath, 'rb')}
 
-  request = requests.post(url, headers=headers, files=files)
+  response = requests.post(url, headers=headers, files=files)
 
-  if request.status == 201:
-    return {}
-  else:
-    None
+  if response.status_code == 201:
+    return response.json()
 
 @app.route("/")
 def home():
@@ -51,8 +52,14 @@ def upload():
   f = request.files['file']
   f.save('/tmp/book.mobi')
 
+  new_file = mobi_to_epub('/tmp/book.mobi')
+  result = send_epub_to_readmill(new_file)
+
   if request.is_xhr:
-    return ''
+    if not result:
+      return '', 500
+    else:
+      return '', 201
   else:
     return redirect(url_for('home'))
 
