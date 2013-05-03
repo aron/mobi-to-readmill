@@ -1,18 +1,14 @@
-<html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
-  </head>
-  <body>
-    <form action="{{ url_for('home') }}" method="post" class="dropzone">
-      <p class="text"></p>
-      <div id="fallback">
-        <input type="file" name="file" />
-        <button type="submit">Upload</button>
-      </div>
-    </form>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block body_class %}upload{% endblock %}
+
+{% block content %}
+  <form action="{{ url_for('home') }}" method="post" class="dropzone">
+    <p class="text"></p>
+    <div id="fallback">
+      <input type="file" name="file" />
+      <button type="submit">Upload</button>
+    </div>
+  </form>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </body>
+</html>

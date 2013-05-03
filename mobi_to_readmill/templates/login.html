@@ -1,6 +1,11 @@
-<!doctype html>
-<html>
-  <body>
-    <a href="{{ url_for('auth') }}">Login to Readmill</a>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <a id="login" class="login" href="{{ url_for('auth') }}">Login to Readmill</a>
+  <script>
+    var login = document.getElementById('login');
+    login.onclick = function () {
+      login.classList.add('disabled');
+    };
+  </script>
+{% endblock %}

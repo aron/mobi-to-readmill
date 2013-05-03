@@ -65,13 +65,13 @@ if (window.FormData && document.querySelector) {
       file: event.dataTransfer.files[0],
       field: input.name,
       onSuccess: function () {
-        alert('whoop!');
+        dropbox.classList.add('success');
       },
       onComplete: function () {
         dropbox.classList.remove('loading');
       },
       onError: function () {
-        alert('boo!');
+        dropbox.classList.add('error');
       },
       onProgress: function (progress) {
         console.log(progress * 100);
