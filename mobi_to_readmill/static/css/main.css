@@ -12,7 +12,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#1a000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.upload:after {
+.upload:after, .progress {
   content: "Drop a .mobi file here to upload!";
   position: absolute;
   top: 50%;
@@ -37,17 +37,23 @@ body {
   content: "Nearly there, go on! Drop it now!";
 }
 
-.upload.loading:after {
-  content: "It's the start of a long journey...";
+.loading .progress {
+  display: block;
+}
+
+.loading:after {
+  content: none;
+}
+
+.progress, .success .progress, .error .progress {
+  display: none;
 }
 
 .upload.success:after {
-  background: white;
   content: "Oh yeah! Made it safe and sound";
 }
 
 .upload.error:after {
-  background: white;
   content: "Nope, that one didn't make it this time";
 }
 

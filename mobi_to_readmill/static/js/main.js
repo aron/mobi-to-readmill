@@ -46,6 +46,16 @@ if (window.FormData && document.querySelector) {
     }
   }
 
+  var timer;
+  var quotes = [
+    'one',
+    'two'
+  ];
+  var progress = document.createElement('span');
+  progress.className = 'progress';
+  progress.innerHTML = quotes[0];
+  document.body.appendChild(progress);
+
   var dropbox = document.body;
   dropbox.addEventListener('dragenter', stop(function (event) {
     dropbox.classList.add('active');
@@ -60,6 +70,11 @@ if (window.FormData && document.querySelector) {
   dropbox.addEventListener("drop", stop(function (event) {
     dropbox.classList.add('loading');
     dropbox.classList.remove('active');
+
+    timer = setInterval(function () {
+      progress.innerHTML = quotes.pop();
+    }, 3000);
+
     upload({
       url: form.action,
       file: event.dataTransfer.files[0],
@@ -68,6 +83,7 @@ if (window.FormData && document.querySelector) {
         dropbox.classList.add('success');
       },
       onComplete: function () {
+        clearTimeout(timer);
         dropbox.classList.remove('loading');
       },
       onError: function () {
