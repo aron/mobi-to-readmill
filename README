@@ -1,6 +1,79 @@
-Links
------
+Mobi to Readmill Service
+========================
 
-http://code.google.com/p/ebook-conversion-tools/
-http://www.bradleymedia.org/gzip-markdown-epub/
-http://en.wikipedia.org/wiki/EPUB#Version_2.0.1
+Is a webservice that will take your (non drm) mobi files, convert them into
+epubs and send them to your Readmill account.
+
+Currently it performs no special formatting on the content of the files
+and may be a bit basic, but fortunately .mobi files themselves are usually
+very simple and convert okay.
+
+It was built over several hours as part of the UIKode 2013 [1] hackday.
+
+[1]: http://www.uikonf.com/2013/04/03/UIKode.html
+
+Installation
+------------
+
+First you'll need python with pip and virtualenv (or virtualenvwrapper)
+installed on your system. To install a local virtual environment run:
+
+    $ virtualenv env --distribute
+    $ source env/bin/activate
+
+Then to install the project dependancies:
+
+    $ pip install -r requirements.txt
+
+Finally to run the app locally:
+
+    $ python server.py
+
+There is also a `Procfile` provided for running the app on Heroku [1] this
+can be run using Foreman [2] or Honcho [3].
+
+[1]: https://devcenter.heroku.com/articles/python
+[2]: http://ddollar.github.io/foreman/
+[3]: https://pypi.python.org/pypi/honcho
+
+Configuration
+-------------
+
+The default settings are available in the `settings.py` file. These can
+be overridden by creating a local `local_settings.py`:
+
+    $ touch local_settings.py
+
+To this you can then add whatever overrides you wish. The two required
+settings are:
+
+ - `READMILL_CLIENT_ID`: Your unique app id.
+ - `READMILL_CLIENT_SECRET`: Your unique app secret.
+
+These can both be found under the "your apps" section of the site [1].
+
+[1]: https://readmill.com/you/apps
+
+Development
+-----------
+
+The project is built using Flask [1] and also uses the Requests [2] library
+for making external http requests.
+
+[1]: http://flask.pocoo.org
+[2]: http://docs.python-requests.org/en/latest/
+
+Credits
+-------
+
+The conversion parts of this project were built on top of a set of open
+source python scripts available online [1]. The licence and authors are
+available on the project homepage.
+
+[1]: http://code.google.com/p/ebook-conversion-tools/
+
+License
+-------
+
+Available under the MIT license.
+
