@@ -1,7 +1,7 @@
 import os
 import sys
 import zipfile
-import time
+from uuid import uuid4
 
 from distutils.dir_util import copy_tree
 
@@ -38,7 +38,7 @@ def mobi_to_epub(infile, outdir="./tmp"):
   filename = os.path.basename(infile)
   book_name, ext = os.path.splitext(filename)
 
-  outdir = "%s/%s" % (outdir, ("%f" % time.time()).replace(".", "_"), )
+  outdir = "%s/%s" % (outdir, uuid4())
 
   # unpack the mobi file
   intermediate_dir = "%s/intermediate" % outdir

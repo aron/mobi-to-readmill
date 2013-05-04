@@ -1,11 +1,16 @@
-from flask import Flask, request, session, flash, redirect, url_for, render_template
+import os
 import requests
+from uuid import uuid4
+from flask import Flask, request, session, flash, redirect, url_for, render_template
 
-from settings import LOCAL_ROOT, READMILL_CLIENT_ID, READMILL_CLIENT_ID, READMILL_ACCESS_TOKEN_URL, READMILL_AUTH_URL, READMILL_API_ROOT
+from settings import LOCAL_ROOT, READMILL_CLIENT_ID, READMILL_CLIENT_SECRET, READMILL_ACCESS_TOKEN_URL, READMILL_AUTH_URL, READMILL_API_ROOT, TMP_DIR
 from tools.mobi_to_epub import mobi_to_epub
 
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+if not os.path.isdir(TMP_DIR):
+  os.makedirs(TMP_DIR)
 
 def url_for_auth_callback():
   return '%s%s' % (LOCAL_ROOT, url_for('auth_callback'))
@@ -28,7 +33,7 @@ def request_access_token(code):
   return request.json()
 
 def send_epub_to_readmill(filepath):
-  url = '%s/v2/me/library?client_id=%s' % (READMILL_API_ROOT, READMILL_CLIENT_ID)
+  url = '%s/me/library?client_id=%s' % (READMILL_API_ROOT, READMILL_CLIENT_ID)
   headers = {'Authorization': 'OAuth %s' % session['access_token']}
   files = {'library_item[asset]': open(filepath, 'rb')}
 
@@ -38,6 +43,8 @@ def send_epub_to_readmill(filepath):
     return response.json()
   elif response.status_code == 401:
     session.delete('access_token')
+  else:
+    app.logger.debug('Failed to send epub, server responded with: %s and body: %s' % (response.status_code, response.json()))
 
 @app.route("/")
 def home():
@@ -48,11 +55,15 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-  f = request.files['file']
-  f.save('/tmp/book.mobi')
+  tmp_file = os.path.join(TMP_DIR, '%s.mobi' % uuid4())
+  upload = request.files['file']
+  upload.save(tmp_file)
 
-  new_file = mobi_to_epub('/tmp/book.mobi')
+  new_file = mobi_to_epub(tmp_file)
   result = send_epub_to_readmill(new_file)
+
+  os.remove(tmp_file)
+  os.remove(new_file)
 
   if request.is_xhr:
     if not result:
