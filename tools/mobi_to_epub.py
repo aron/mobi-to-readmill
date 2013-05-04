@@ -76,5 +76,5 @@ def mobi_to_epub(infile, outdir="./tmp"):
 
 if __name__ == "__main__":
   infile = sys.argv[1]
-  
+
   print "wrote epub to %s" % mobi_to_epub(infile)

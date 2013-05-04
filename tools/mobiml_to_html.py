@@ -404,7 +404,6 @@ class MobiMLConverter(object):
 
         if 'align' in tattr.keys():
             align = tattr.pop('align').strip()
-            print align
             if align:
                 if tname in ('table', 'td', 'tr'):
                     pass
