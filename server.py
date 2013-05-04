@@ -1,2 +1,2 @@
-from mobi_to_readmill import app
+from app import app
 app.run(debug=True)

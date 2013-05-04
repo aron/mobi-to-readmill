@@ -5,8 +5,8 @@ import time
 
 from distutils.dir_util import copy_tree
 
-from mobi_to_readmill.mobi.mobi_unpack import unpack_book
-from mobi_to_readmill.mobi.mobiml_to_html import MobiMLConverter
+from tools.mobi_unpack import unpack_book
+from tools.mobiml_to_html import MobiMLConverter
 
 epub_container = """<?xml version="1.0" encoding="UTF-8" ?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">

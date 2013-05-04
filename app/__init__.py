@@ -1,7 +1,7 @@
 from flask import Flask, request, session, flash, redirect, url_for, render_template
 import requests
 
-from mobi_to_readmill.mobi.mobi_to_epub import mobi_to_epub
+from tools.mobi_to_epub import mobi_to_epub
 
 LOCAL_ROOT = 'http://localhost:5000'
 READMILL_CLIENT_ID = '26aec147008ebfd0a747605bb2db21bd'
@@ -90,7 +90,3 @@ def auth_callback():
       flash('Sorry, login failed with code: %s' % json['error'])
 
   return redirect(url_for('home'))
-
-if __name__ == "__main__":
-  app.debug = True
-  app.run()
