@@ -1,11 +1,8 @@
 from flask import Flask, request, session, flash, redirect, url_for, render_template
 import requests
 
+from settings import LOCAL_ROOT, READMILL_CLIENT_ID, READMILL_CLIENT_ID, READMILL_ACCESS_TOKEN_URL, READMILL_AUTH_URL, READMILL_API_ROOT
 from tools.mobi_to_epub import mobi_to_epub
-
-LOCAL_ROOT = 'http://localhost:5000'
-READMILL_CLIENT_ID = '26aec147008ebfd0a747605bb2db21bd'
-READMILL_CLIENT_SECRET = 'b4e8ad628ce568f540d8976bc5f042d2'
 
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -15,7 +12,7 @@ def url_for_auth_callback():
 
 def redirect_to_readmill():
   callback_url = url_for_auth_callback()
-  auth_url = 'https://readmill.com/oauth/authorize?response_type=code&client_id=%s&redirect_uri=%s' % (READMILL_CLIENT_ID, callback_url)
+  auth_url = '%s?response_type=code&client_id=%s&redirect_uri=%s' % (READMILL_AUTH_URL, READMILL_CLIENT_ID, callback_url)
   return redirect(auth_url)
 
 def request_access_token(code):
@@ -26,12 +23,12 @@ def request_access_token(code):
     'redirect_uri': url_for_auth_callback(),
     'code': code
   }
-  request = requests.post('https://readmill.com/oauth/token', params=params)
+  request = requests.post(READMILL_ACCESS_TOKEN_URL, params=params)
 
   return request.json()
 
 def send_epub_to_readmill(filepath):
-  url = 'https://api.readmill.com/v2/me/library?client_id=%s' % READMILL_CLIENT_ID
+  url = '%s/v2/me/library?client_id=%s' % (READMILL_API_ROOT, READMILL_CLIENT_ID)
   headers = {'Authorization': 'OAuth %s' % session['access_token']}
   files = {'library_item[asset]': open(filepath, 'rb')}
 

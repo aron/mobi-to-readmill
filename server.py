@@ -1,2 +1,4 @@
 from app import app
-app.run(debug=True)
+from settings import FLASK_DEBUG
+
+app.run(debug=FLASK_DEBUG)
